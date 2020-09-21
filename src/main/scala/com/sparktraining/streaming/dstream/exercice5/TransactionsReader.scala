@@ -38,6 +38,11 @@ class TransactionsReader extends KafkaReader[Transaction] {
     stream
   }
 
+  /**
+   * Convert json value to transaction and
+   * filter postivie transcation
+   * @param inputDStream
+   */
   override def processStream(inputDStream: InputDStream[ConsumerRecord[String, String]]): Unit = {
     val transactionsJson = inputDStream.map(kafkaMessage => kafkaMessage.value())
 
