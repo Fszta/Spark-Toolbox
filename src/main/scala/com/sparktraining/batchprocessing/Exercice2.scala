@@ -10,20 +10,21 @@ object Exercice2 extends SparkSessionBase {
     // Read data from kafka transactions topic
     val dfTransactionsString = sparkSession.read
       .format("kafka")
-      .option("kafka.bootstrap.servers","192.168.1.36:9092")
-      .option("subscribe","transactions")
+      .option("kafka.bootstrap.servers", "0.0.0.0:9092")
+      .option("subscribe", "transactions")
       .option("startingOffsets", "earliest")
       .load()
 
     val transactionSchema = new StructType()
+      .add("id", StringType)
       .add("accountId", StringType)
-      .add("amount",IntegerType)
-      .add("timestamp",LongType)
+      .add("amount", IntegerType)
+      .add("timestamp", LongType)
 
     val dfTransactions = dfTransactionsString
-      .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
-      .select(from_json(col("value"),transactionSchema).as("transactions"), col("key").alias("id"))
-      .select("transactions.*","id")
+      .selectExpr("CAST(value AS STRING)")
+      .select(from_json(col("value"), transactionSchema).as("transactions"))
+      .select("transactions.*")
 
     dfTransactions.show()
   }
