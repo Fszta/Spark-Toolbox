@@ -14,5 +14,5 @@ trait StreamingHandler {
 
   def dfToSinkFormat(dataFrame: DataFrame): DataFrame
 
-  def streamWriter(dataFrame: DataFrame): Unit
+  def streamWriter(dataFrame: DataFrame, consoleOutput: Boolean): Unit
 }
