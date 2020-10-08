@@ -18,6 +18,6 @@ object Exercice3 extends SparkSessionBase {
     // Process data & write it to a new kafka topic
     val processedDf = transactionHandler.processDataframe(dfTransactions)
     val formatedDf = transactionHandler.dfToSinkFormat(processedDf)
-    transactionHandler.streamWriter(formatedDf)
+    transactionHandler.streamWriter(formatedDf, false)
   }
 }
