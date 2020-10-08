@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  spark-master:
+    image: spark-master:3.0.1
+    container_name: spark_master
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+
+  spark-worker:
+    image: spark-worker:3.0.1
+    container_name: spark_worker
+    environment:
+      - "SPARK_MASTER=spark://spark-master:7077"
+    ports:
+      - "8082:8080"
