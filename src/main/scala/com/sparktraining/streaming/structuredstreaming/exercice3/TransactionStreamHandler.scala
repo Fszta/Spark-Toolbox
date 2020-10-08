@@ -79,7 +79,7 @@ class TransactionStreamHandler extends StreamingHandler {
    * Write stream to kafka topic
    * @param dataFrame
    */
-  override def streamWriter(dataFrame: DataFrame): Unit = {
+  override def streamWriter(dataFrame: DataFrame, consoleOutput: Boolean): Unit = {
     dataFrame.writeStream
       .format("kafka")
       .option("kafka.bootstrap.servers", "192.168.1.36:9092")
